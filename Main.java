@@ -1,11 +1,15 @@
 import java.lang.Math;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-
-        Ponto p = new Ponto(1,2);
-
+        int n = 0;
+        ArrayList<Ponto> pontos = new ArrayList<>();
+        Random gerador = new Random();
+        for (int i = 0; i < n; i++) {
+            pontos.add(new Ponto(gerador.nextInt(), gerador.nextInt()));
+        }
     }
 
     public Ponto calculaCentroide(ArrayList<Ponto> lista) {
