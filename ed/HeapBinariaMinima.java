@@ -198,7 +198,8 @@ public class HeapBinariaMinima
 			for (int j = 0; j < vetor.length; j++){
 				//pular duplicatas
 				if (j > i){
-					Cluster cluster = new Cluster(vetor[i], vetor[j], calcularDistancias(vetor[i], vetor[j]));
+					double distancia = calcularDistancias(vetor[i], vetor[j]);
+					Cluster cluster = new Cluster(vetor[i], vetor[j], distancia);
 					clusters.add(cluster);
 				}
 
@@ -208,12 +209,24 @@ public class HeapBinariaMinima
 		for (int i = 0; i < clusters.size(); i++){
 			clustersVetor[i] = clusters.get(i);
 		}
-		HeapBinariaMinima heap = new HeapBinariaMinima(tamanho, clustersVetor);
+		int aaa = clustersVetor.length;
+		HeapBinariaMinima heap = new HeapBinariaMinima(aaa, clustersVetor);
 		return heap;
 	}
 	private double calcularDistancias(Ponto x, Ponto y){
+		double distancia;
+		if (x.getX() == y.getX() && x.getY() == y.getY()){
+			distancia = 0;
+		} else if(x.getX()>= y.getX() && x.getY()>= y.getY()) {
+			distancia = Math.sqrt((Math.pow(x.getX(), 2) - Math.pow(y.getX(), 2)) + (Math.pow(x.getY(), 2)) - (Math.pow(y.getY(), 2)));
+		} else if (x.getX() >= y.getX() && x.getY() <= y.getY()) {
+			distancia = Math.sqrt((Math.pow(x.getX(), 2) - Math.pow(y.getX(), 2)) + (Math.pow(y.getY(), 2)) - (Math.pow(x.getY(), 2)));
+		} else if (x.getX() <= y.getX() && x.getY() >= y.getY()) {
+			distancia = Math.sqrt((Math.pow(y.getX(), 2) - Math.pow(x.getX(), 2)) + (Math.pow(x.getY(), 2)) - (Math.pow(y.getY(), 2)));
+		} else if (x.getX() <= y.getX() && x.getY() <= y.getY()) {
+			distancia = Math.sqrt((Math.pow(y.getX(), 2) - Math.pow(x.getX(), 2)) + (Math.pow(y.getY(), 2)) - (Math.pow(x.getY(), 2)));
+		}else distancia = 0;
 
-		double distancia = Math.sqrt((Math.pow(x.getX(), 2) - Math.pow(y.getX(), 2)) + (Math.pow(x.getY(), 2)) - (Math.pow(y.getY(), 2)));
 		return distancia;
 	}
 }
